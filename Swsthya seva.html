@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Swasthya Sewa - Hospital Info & Appointments</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      margin: 0; padding: 20px;
+    }
+    header {
+      background: #0055cc;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      border-radius: 8px;
+    }
+    section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      color: #777;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+    input, textarea, select {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background: #0055cc;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    button:hover {
+      background: #0041a8;
+    }
+    .status {
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+    }
+    .green { background: #4CAF50; }
+    .red { background: #F44336; }
+    .yellow { background: #FF9800; }
+    ul { list-style: none; padding-left: 0; }
+    ul li { margin-bottom: 6px; }
+    a {
+      color: #0055cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #0055cc;
+      color: white;
+    }
+    .hospital-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏥 Swasthya Sewa</h1>
+  <p>Your Smart Government Hospital Assistant</p>
+</header>
+
+<!-- Point 1 -->
+<section>
+  <h2>1️⃣ Hospital Locator</h2>
+  <p>Find nearby hospitals quickly by city, district, pincode, or GPS location.</p>
+
+  <input type="text" id="locationInput" placeholder="Enter city or pincode" />
+  <select id="hospitalType">
+    <option value="all">All Hospitals</option>
+    <option value="govt">Government Hospitals</option>
+    <option value="private">Private Hospitals</option>
+  </select>
+  <br/>
+  <button onclick="searchHospitals()">🔍 Search</button>
+  <button onclick="useGPS()">📍 Use GPS</button>
+
+  <div id="searchResult" style="margin-top:15px;"></div>
+</section>
+
+<!-- Point 2 -->
+<section>
+  <h2>2️⃣ Hospital Details</h2>
+    <div class="hospital-card">
+    <h3>🩺 Civil Government Hospital</h3>
+    <p><strong>Address:</strong> Sion, Mumbai, Maharashtra</p>
+    <p><strong>Emergency Services:</strong> 24/7 Ambulance, ICU</p>
+    <p><strong>Facilities:</strong> OPD, Diagnostics, Blood Bank, Pharmacy</p>
+    <p><strong>Contact:</strong> ☎ +91 98765 43210</p>
+    <p><strong>Status:</strong> <span class="status green">Open Now</span></p>
+  </div>
+</section>
+
+<!-- Point 3 -->
+<section>
+  <h2>3️⃣ Doctor Info</h2>
+  <p>Select specialization to see doctor list:</p>
+  <ul>
+    <li><strong>👨‍⚕️ Name: Dr. Ayesha Khan</strong> </li>
+    <li>🩺 Specialization: General Physician</li>
+    <li>🎓 Degree: MBBS, MD(General Medicine)</li>
+    <li>💰 Consultation Fee: ₹50</li>
+    <li>Status: <span class="status green">Available</span></li>
+  </ul>
+  <ul>
+    <li><strong>👨‍⚕️ Name: Dr. Meera Patel</strong> </li>
+    <li>🩺 Specialization:  Cardiologist</li>
+    <li>🎓 Degree: MBBS → MD (General Medicine) → DM (Cardiology)</li>
+    <li>💰 Consultation Fee: ₹50</li>
+    <li>Status: <span class="status green">Available</span></li>
+  </ul>
+  <ul>
+    <li><strong>👨‍⚕️ Name: Dr. Rahul Singh</strong> </li>
+    <li>🩺 Specialization:  Neurologist</li>
+    <li>🎓 Degree: MBBS → MD (General Medicine / Pediatrics) → DM (Neurology)</li>
+    <li>💰 Consultation Fee: ₹70</li>
+    <li>Status: <span class="status red">Not Available</span></li>
+  </ul>
+</section>
+
+<section class="staff-section">
+  <h2>Doctors' Availability</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Doctor Name</th>
+        <th>Specialization</th>
+        <th>Available Days</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Dr. Ayesha Khan</td>
+        <td>General Physician</td>
+        <td>Mon, Wed, Fri</td>
+        <td>9 AM - 12 PM</td>
+      </tr>
+      <tr>
+        <td>Dr. Meera Patel</td>
+        <td>Cardiologist</td>
+        <td>Mon, Thu</td>
+        <td>2 PM - 5 PM</td>
+      </tr>
+      <tr>
+        <td>Dr. Rahul Singh</td>
+        <td>Neurologist</td>
+        <td>Tue, Thu</td>
+        <td>2 PM - 5 PM</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Point 4 -->
+<section>
+  <h2>4️⃣ Appointment Booking</h2>
+  <p>Book digital tokens online with payment option.</p>
+
+  <!-- Appointment Form -->
+  <form id="appointmentForm">
+    <label for="patientName">Full Name:</label>
+    <input type="text" id="patientName" name="patientName" required />
+
+    <label for="patientAge">Age:</label>
+    <input type="number" id="patientAge" name="patientAge" min="0" required />
+
+    <label for="patientContact">Contact Number:</label>
+    <input type="tel" id="patientContact" name="patientContact" required />
+
+    <label for="doctorSelect">Select Doctor:</label>
+    <select id="doctorSelect" name="doctorSelect" required>
+      <option value="">--Select Doctor--</option>
+      <option value="Dr. Ayesha Khan">Dr. Ayesha Khan</option>
+      <option value="Dr. Rahul Singh">Dr. Rahul Singh</option>
+      <option value="Dr. Meera Patel">Dr. Meera Patel</option>
+    </select>
+
+    <label for="appointmentDate">Preferred Date:</label>
+    <input type="date" id="appointmentDate" name="appointmentDate" required />
+
+    <button type="submit">Book Appointment</button>
+  </form>
+
+  <!-- Confirmation Message -->
+  <div id="confirmation" style="display:none; margin-top:1em; font-weight:bold; color:green;"></div>
+</section>
+
+<!-- Point 5 -->
+<section>
+  <h2>5️⃣ Live Queue Tracker</h2>
+  <p>Real-time token updates:</p>
+  <ul>
+    <li>Total tokens today: 100</li>
+    <li>Booked: 80</li>
+    <li>Unbooked: 20</li>
+    <li>Current Token in Consultation: <strong>Token #45</strong></li>
+  </ul>
+</section>
+
+<!-- Point 6 -->
+<section>
+  <h2>6️⃣ Feedback & Complaints</h2>
+  <form id="feedbackForm" onsubmit="submitFeedback(event)">
+    <label for="feedbackText">Your Feedback or Complaint:</label><br/>
+    <textarea id="feedbackText" rows="4" placeholder="Write here..." required></textarea><br/>
+    <button type="submit">Submit</button>
+  </form>
+  <p id="feedbackMsg" style="margin-top:10px; font-weight:bold;"></p>
+</section>
+
+<script>
+  function searchHospitals() {
+    const input = document.getElementById('locationInput').value.trim();
+    const type = document.getElementById('hospitalType').value;
+    const result = document.getElementById('searchResult');
+
+    if(input === '') {
+      result.innerHTML = '<p style="color:red;">⚠ Please enter a city or pincode to search.</p>';
+      return;
+    }
+
+    result.innerHTML = `
+      <p style="color:green;">Showing ${type} hospitals near <strong>"${input}"</strong>:</p>
+      <ul>
+        <li>🏥 Civil Government Hospital - 2 km away</li>
+        <li>🏥 City Care Private Hospital - 3 km away</li>
+        <li>🏥 District Medical College - 5 km away</li>
+      </ul>`;
+  }
+
+  function useGPS() {
+    const result = document.getElementById('searchResult');
+    result.innerHTML = `
+      <p style="color:green;">📍 GPS detected your location. Showing nearby hospitals:</p>
+      <ul>
+        <li>🏥 Civil Government Hospital - 1.5 km away</li>
+        <li>🏥 Sunrise Health Clinic - 2 km away</li>
+      </ul>`;
+  }
+
+  // Appointment form handler
+  const form = document.getElementById('appointmentForm');
+  const confirmation = document.getElementById('confirmation');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = form.patientName.value;
+    const doctor = form.doctorSelect.value;
+    const date = form.appointmentDate.value;
+
+    confirmation.style.display = 'block';
+    confirmation.textContent = `✅ Thank you, ${name}! Your appointment with ${doctor} on ${date} has been booked.`;
+
+    form.reset();
+
+    setTimeout(() => {
+      confirmation.style.display = 'none';
+    }, 5000);
+  });
+
+  function submitFeedback(event) {
+    event.preventDefault();
+    const feedback = document.getElementById('feedbackText').value.trim();
+    const msg = document.getElementById('feedbackMsg');
+    if(feedback === '') {
+      msg.textContent = '⚠ Please write your feedback before submitting.';
+      msg.style.color = 'red';
+      return;
+    }
+    msg.textContent = '✅ Thank you for your feedback!';
+    msg.style.color = 'green';
+    document.getElementById('feedbackForm').reset();
+    setTimeout(() => { msg.textContent = ''; }, 5000);
+  }
+</script>
+
+</body>
+</html>
